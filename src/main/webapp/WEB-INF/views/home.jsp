@@ -2,6 +2,9 @@
 <%@ page session="false" %>
 <html>
 <head>
+
+	<script type="text/javascript" src="resources/js/MainHandler.js"></script>
+
 	<title>Home</title>
 </head>
 <body>
