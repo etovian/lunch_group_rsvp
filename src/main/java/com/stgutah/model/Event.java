@@ -16,6 +16,7 @@ public class Event extends Persistable {
 	private Collection<Person> attendees;
 	
 	public Event() {
+		//making some changes to see if git gets them...
 	}
 
 	public String getTitle() {
