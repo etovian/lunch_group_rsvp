@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<html>
+<html data-ng-app="demoApp">
 <head>
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -10,11 +10,20 @@
 
 	<title>Home</title>
 </head>
-<body>
-<h1>
-	Hello world!  
-</h1>
+<body data-ng-controller="HomeController">
+	<h1>
+		Hello world!  
+	</h1>
+	
+	<P>  The time on the server is ${serverTime}. </P>
 
-<P>  The time on the server is ${serverTime}. </P>
+	<input type="text" data-ng-model="name"> {{ name }}
+	
+	<ul>
+		<li data-ng-repeat="person in family | filter:name | orderBy:firstName">
+			{{ person.firstName }} {{ person.lastName }}, {{ person.dob }}
+		</li>
+	</ul>
+
 </body>
 </html>
