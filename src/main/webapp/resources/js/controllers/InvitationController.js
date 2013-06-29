@@ -15,7 +15,7 @@ function InvitationController($scope, invitationService) {
 	$scope.selectedInvitation = null;
 	
 	$scope.selectInvitation = function (event, invitation) {
+		
 		$scope.selectedInvitation = invitation;
-//		$(event.target).parent().css({background: "black"});
 	};
 }
