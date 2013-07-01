@@ -18,106 +18,23 @@
 	<title>RSVP v2!</title>
 </head>
 
-<body data-ng-controller="InvitationController" data-ng-cloak>
+<body data-ng-app="invitationApp" data-ng-cloak>
 
 	<div class="navbar">
 		<div class="navbar-inner">
 			<span class="brand">Event/Invitation Manager</span>
 			<ul class="nav">
+				<li><a href="#">Review Invitations</a></li>
 				<li><a href="#">Admin</a></li>
 				<li><a href="#">Locations</a></li>
 				<li><a href="#">Events</a></li>
-				<li><a href="#">Invitations</a></li>
+				<li><a href="#">Create Invitations</a></li>
 			</ul>
 		</div>
 	</div>
 
-	<div>
+	<jsp:include page="templates/ViewInvitations.jsp"></jsp:include>
 
-		<div id="viewYourInvitations">
-			<div class="row">
-				<div class="span4">
-					<div class="tile">
-						<h3>Invitations ({{invitations.length}})</h3>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="span4">
-					<div id="invitation-scroller">
-						<div class="tile click-me hover-highlight" data-ng-repeat="invitation in invitations" data-ng-click="selectInvitation($event, invitation);">
-							<h4>{{invitation.title}}</h4>
-							<p>Events: {{invitation.events.length}}</p>
-							<p>Invitees: {{invitation.invitees.length}}</p>
-							<p>Created: {{invitation.created | date:'short'}}</p>
-							<p>Sent: {{invitation.sent}}</p>
-						</div>
-					</div>
-				</div>
-				<div class="span12">
-					<div class="row">
-						<div class="span12">
-							<div data-ng-show="ui.showEventTile" data-ng-animate="'fade'" class="tile">
-								<button type="button" class="close" data-ng-click="ui.showEventTile=false;">×</button>
-								<h2>Events for {{selectedInvitation.title}}</h2>
-								<table id="tblInvitationEvents" class="table">
-									<thead>
-										<tr>
-											<td>Title</td>
-											<td>Location</td>
-											<td>Organizer</td>
-											<td>Address</td>
-											<td>Start</td>
-											<td>End</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr data-ng-repeat="event in selectedInvitation.events | orderBy:eventSortOrder">
-											<td>{{event.title}}</td>
-											<td>{{event.location.name}}</td>
-											<td>{{event.organizer.firstName}}  {{event.organizer.lastName}}</td>
-											<td>{{event.location.streetAddress}} <br/> {{event.location.city}}, {{event.location.zip}}</td>
-											<td>{{event.startTime | date:'short'}}</td>
-											<td>{{event.endTime | date:'shortTime'}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="span12">
-							<div data-ng-show="ui.showInviteeTile"  data-ng-animate="'fade'" class="tile">
-								<h2>Invitees for {{selectedInvitation.title}}</h2>
-								<table id="tblInvitees" class="table">
-									<thead>
-										<tr>
-											<td>Name</td>
-											<td>Email Address</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr data-ng-repeat="invitee in selectedInvitation.invitees | orderBy:inviteeSortOrder">
-											<td>{{invitee.firstName}} {{invitee.lastName}}</td>
-											<td>{{invitee.emailAddress}}</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>				
-			</div>
-		
-		<div class="row">
-			<div class="span6">
-					<div data-ng-hide="!selectedInvitation"  data-ng-animate="'fade'">
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<P>  The time on the server is ${serverTime}. </P>
 </body>
 </html>

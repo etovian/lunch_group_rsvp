@@ -71,10 +71,10 @@ public class InvitationData {
 		List<Person> users = getUsers();
 		
 		events.add(new Event("SLC South", locations.get(0), EventStatus.SCHEDULED, new Date(2013, 7, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(0)));
-		events.add(new Event("Provo", locations.get(1), EventStatus.SCHEDULED, new Date(2013, 7, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(1)));
-		events.add(new Event("Davis County", locations.get(2), EventStatus.SCHEDULED, new Date(2013, 7, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(2)));
-		events.add(new Event("SLC North", locations.get(3), EventStatus.SCHEDULED, new Date(2013, 7, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(3)));
-		events.add(new Event("SLC Central", locations.get(4), EventStatus.SCHEDULED, new Date(2013, 7, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(4)));
+		events.add(new Event("Provo", locations.get(1), EventStatus.SCHEDULED, new Date(2013, 8, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(1)));
+		events.add(new Event("Davis County", locations.get(2), EventStatus.SCHEDULED, new Date(2013, 9, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(2)));
+		events.add(new Event("SLC North", locations.get(3), EventStatus.SCHEDULED, new Date(2013, 10, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(3)));
+		events.add(new Event("SLC Central", locations.get(4), EventStatus.SCHEDULED, new Date(2013, 11, 12, 13, 0), new Date(2013, 7, 12, 14, 0), users.get(4)));
 		
 		int x = 0;
 		for(Event event : events) {
@@ -135,10 +135,10 @@ public class InvitationData {
 		inviteesInvitation4.add(users.get(3));
 		
 		invitations.add(new Invitation("Java Group, August 2013", eventsInvitation0, inviteesInvitation0, Boolean.TRUE, new Date(), null));
-		invitations.add(new Invitation("Java Group, August 2013", eventsInvitation1, inviteesInvitation1, Boolean.TRUE, new Date(), null));
-		invitations.add(new Invitation("Java Group, August 2013", eventsInvitation2, inviteesInvitation2, Boolean.TRUE, new Date(), null));
-		invitations.add(new Invitation("Java Group, August 2013", eventsInvitation3, inviteesInvitation3, Boolean.TRUE, new Date(), null));
-		invitations.add(new Invitation("Java Group, August 2013", eventsInvitation4, inviteesInvitation4, Boolean.TRUE, new Date(), null));
+		invitations.add(new Invitation("Java Group, September 2013", eventsInvitation1, inviteesInvitation1, Boolean.TRUE, new Date(), null));
+		invitations.add(new Invitation("Java Group, October 2013", eventsInvitation2, inviteesInvitation2, Boolean.TRUE, new Date(), null));
+		invitations.add(new Invitation("Java Group, November 2013", eventsInvitation3, inviteesInvitation3, Boolean.TRUE, new Date(), null));
+		invitations.add(new Invitation("Java Group, December 2013", eventsInvitation4, inviteesInvitation4, Boolean.TRUE, new Date(), null));
 		
 		int x = 0;
 		for(Invitation invitation : invitations) {

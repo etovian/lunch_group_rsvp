@@ -2,6 +2,7 @@ package com.stgutah.controller;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.stgutah.model.Invitation;
 import com.stgutah.model.Person;
 import com.stgutah.service.InvitationService;
 
@@ -62,6 +65,13 @@ public class HomeController {
 		return "home2";
 	}
 
+	@RequestMapping(value = "/viewInvitations", method = RequestMethod.GET)
+	public String viewInvitations() {
+		logger.info("viewInvitations requested");
+		
+		return "templates/ViewInvitations";
+	}
+	
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	public void getUsers(Model model) {
 		
@@ -69,9 +79,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
-	public void getInvitations(Model model) {
-		
-		model.addAttribute("invitations", invitationService.getInvitations());
+	public @ResponseBody Collection<Invitation> getInvitations() {
+//		model.addAttribute("invitations", invitationService.getInvitations());
+		return invitationService.getInvitations();
 	}
 	
 	@RequestMapping(value = "/getLocations", method = RequestMethod.GET)
