@@ -9,7 +9,18 @@ public class Location extends Persistable {
 	private String zip;
 	
 	public Location() {
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	public Location(String name, String streetAddress, String city,
+			String state, String zip) {
+
+		super();
+		this.name = name;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
 	}
 
 	public String getName() {

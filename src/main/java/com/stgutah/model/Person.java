@@ -9,6 +9,12 @@ public class Person extends Persistable {
 	public Person() {
 	}
 
+	public Person(String firstName, String lastName, String emailAddress) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailAddress = emailAddress;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

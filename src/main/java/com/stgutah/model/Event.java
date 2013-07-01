@@ -20,6 +20,18 @@ public class Event extends Persistable {
 
 	}
 
+	public Event(String title, Location location, EventStatus status,
+			Date startTime, Date endTime, Person organizer) {
+
+		this.title = title;
+		this.location = location;
+		this.status = status;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.organizer = organizer;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}

@@ -15,6 +15,18 @@ public class Invitation extends Persistable {
 	public Invitation() {
 	}
 
+	public Invitation(String title, Collection<Event> events,
+			Collection<Person> invitees, Boolean allowMultipleAttendance,
+			Date created, Date sent) {
+
+		this.title = title;
+		this.events = events;
+		this.invitees = invitees;
+		this.allowMultipleAttendance = allowMultipleAttendance;
+		this.created = created;
+		this.sent = sent;
+	}
+
 	public Collection<Event> getEvents() {
 		return events;
 	}

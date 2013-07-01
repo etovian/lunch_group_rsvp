@@ -8,18 +8,23 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.stgutah.model.Person;
+import com.stgutah.service.InvitationService;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+
+	@Autowired
+	private InvitationService invitationService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -60,16 +65,24 @@ public class HomeController {
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	public void getUsers(Model model) {
 		
-		List<Person> persons = new ArrayList<Person>();
+		model.addAttribute("users", invitationService.getUsers());
+	}
+	
+	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
+	public void getInvitations(Model model) {
 		
-		Person person = new Person();
-		person.setId(1);
-		person.setFirstName("Mike");
-		person.setLastName("Green");
-		person.setEmailAddress("mike.green@stgutah.com");
+		model.addAttribute("invitations", invitationService.getInvitations());
+	}
+	
+	@RequestMapping(value = "/getLocations", method = RequestMethod.GET)
+	public void getLocations(Model model) {
 		
-		persons.add(person);
+		model.addAttribute("locations", invitationService.getLocations());
+	}
+	
+	@RequestMapping(value = "/getEvents", method = RequestMethod.GET)
+	public void getEvents(Model model) {
 		
-		model.addAttribute("users", persons);
+		model.addAttribute("events", invitationService.getEvents());
 	}
 }

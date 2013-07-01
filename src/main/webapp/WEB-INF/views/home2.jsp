@@ -49,14 +49,14 @@
 							<h4>{{invitation.title}}</h4>
 							<p>Events: {{invitation.events.length}}</p>
 							<p>Invitees: {{invitation.invitees.length}}</p>
-							<p>Created: {{invitation.created}}</p>
+							<p>Created: {{invitation.created | date:'short'}}</p>
 							<p>Sent: {{invitation.sent}}</p>
 						</div>
 					</div>
 				</div>
-				<div class="span10">
+				<div class="span12">
 					<div class="row">
-						<div class="span10">
+						<div class="span12">
 							<div data-ng-show="ui.showEventTile" data-ng-animate="'fade'" class="tile">
 								<button type="button" class="close" data-ng-click="ui.showEventTile=false;">×</button>
 								<h2>Events for {{selectedInvitation.title}}</h2>
@@ -65,6 +65,7 @@
 										<tr>
 											<td>Title</td>
 											<td>Location</td>
+											<td>Organizer</td>
 											<td>Address</td>
 											<td>Start</td>
 											<td>End</td>
@@ -74,6 +75,7 @@
 										<tr data-ng-repeat="event in selectedInvitation.events | orderBy:eventSortOrder">
 											<td>{{event.title}}</td>
 											<td>{{event.location.name}}</td>
+											<td>{{event.organizer.firstName}}  {{event.organizer.lastName}}</td>
 											<td>{{event.location.streetAddress}} <br/> {{event.location.city}}, {{event.location.zip}}</td>
 											<td>{{event.startTime | date:'short'}}</td>
 											<td>{{event.endTime | date:'shortTime'}}</td>
@@ -84,7 +86,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="span10">
+						<div class="span12">
 							<div data-ng-show="ui.showInviteeTile"  data-ng-animate="'fade'" class="tile">
 								<h2>Invitees for {{selectedInvitation.title}}</h2>
 								<table id="tblInvitees" class="table">
