@@ -97,7 +97,6 @@ tr.selectedRow {
 }
 
 .tile {
-	cursor:pointer;
 	background-color: white;
 	
 	padding: 5px;
@@ -112,7 +111,20 @@ tr.selectedRow {
 	box-shadow:         7px 7px 5px rgba(50, 50, 50, 0.75);		
 }
 
-.invitation-scroller {
+.click-me {
+	cursor: pointer;
+}
+
+.hover-highlight:HOVER {
+	background-color: #edf4a3;
+}
+
+.selected {
+	color: white;
+	background-color: gray;
+}
+
+#invitation-scroller {
 	max-height: 700px;
 	overflow-y: scroll; 
 }

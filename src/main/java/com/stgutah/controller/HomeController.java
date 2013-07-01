@@ -1,7 +1,9 @@
 package com.stgutah.controller;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.stgutah.model.Person;
 
 /**
  * Handles requests for the application home page.
@@ -52,5 +56,20 @@ public class HomeController {
 		
 		return "home2";
 	}
-	
+
+	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+	public void getUsers(Model model) {
+		
+		List<Person> persons = new ArrayList<Person>();
+		
+		Person person = new Person();
+		person.setId(1);
+		person.setFirstName("Mike");
+		person.setLastName("Green");
+		person.setEmailAddress("mike.green@stgutah.com");
+		
+		persons.add(person);
+		
+		model.addAttribute("users", persons);
+	}
 }

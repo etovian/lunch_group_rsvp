@@ -9,9 +9,11 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/app.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/InvitationController.js"></script>
 	<script type="text/javascript" src="resources/js/services/InvitationService.js"></script>
-	<script type="text/javascript" src="resources/js/MainHandler.js"></script>
+	<script type="text/javascript" src="resources/js/UiHandler.js"></script>
 
 	<title>RSVP</title>
 </head>

@@ -1,4 +1,4 @@
-var InvitationService = function() {
+var InvitationService = function($http) {
 
 	var service = {};
 	
@@ -10,7 +10,16 @@ var InvitationService = function() {
 		return locations;
 	};
 
-	service.getUsers = function() {
+	service.getUsers = function(onSuccess) {
+		
+		$http({
+			method: 'GET'
+			, url: "getUsers"
+		}).success(function(data, status, headers, config) {
+			onSuccess(data);
+		}).error(function(data, status, headers, config) {
+			alert('http error!');
+		});
 		return users;
 	};
 

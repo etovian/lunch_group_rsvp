@@ -13,11 +13,11 @@ public class Event extends Persistable {
 	private Date startTime;
 	private Date endTime;
 	private Person organizer;
+	private Collection<Person> rsvps; 
 	private Collection<Person> attendees;
 	
 	public Event() {
-		//making some changes to see if git gets them...
-		//sigh...
+
 	}
 
 	public String getTitle() {
@@ -74,6 +74,14 @@ public class Event extends Persistable {
 
 	public void setAttendees(Collection<Person> attendees) {
 		this.attendees = attendees;
+	}
+
+	public Collection<Person> getRsvps() {
+		return rsvps;
+	}
+
+	public void setRsvps(Collection<Person> rsvps) {
+		this.rsvps = rsvps;
 	}
 
 }

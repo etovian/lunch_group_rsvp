@@ -9,10 +9,11 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script>
+	<script type="text/javascript" src="resources/js/app.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/InvitationController.js"></script>
 	<script type="text/javascript" src="resources/js/services/InvitationService.js"></script>
-	<script type="text/javascript" src="resources/js/MainHandler.js"></script>
+	<script type="text/javascript" src="resources/js/UiHandler.js"></script>
 
 	<title>RSVP v2!</title>
 </head>
@@ -35,12 +36,16 @@
 
 		<div id="viewYourInvitations">
 			<div class="row">
-				<div class="span4"><h3>Invitations ({{invitations.length}})</h3></div>
+				<div class="span4">
+					<div class="tile">
+						<h3>Invitations ({{invitations.length}})</h3>
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="span4">
-					<div class="invitation-scroller">
-						<div class="tile" data-ng-repeat="invitation in invitations" data-ng-click="selectInvitation($event, invitation);">
+					<div id="invitation-scroller">
+						<div class="tile click-me hover-highlight" data-ng-repeat="invitation in invitations" data-ng-click="selectInvitation($event, invitation);">
 							<h4>{{invitation.title}}</h4>
 							<p>Events: {{invitation.events.length}}</p>
 							<p>Invitees: {{invitation.invitees.length}}</p>
@@ -49,10 +54,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="span8">
+				<div class="span10">
 					<div class="row">
-						<div class="span8">
-							<div data-ng-hide="!selectedInvitation" data-ng-animate="'fade'" class="tile">
+						<div class="span10">
+							<div data-ng-show="ui.showEventTile" data-ng-animate="'fade'" class="tile">
+								<button type="button" class="close" data-ng-click="ui.showEventTile=false;">×</button>
 								<h2>Events for {{selectedInvitation.title}}</h2>
 								<table id="tblInvitationEvents" class="table">
 									<thead>
@@ -78,8 +84,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="span8">
-							<div data-ng-hide="!selectedInvitation"  data-ng-animate="'fade'" class="tile">
+						<div class="span10">
+							<div data-ng-show="ui.showInviteeTile"  data-ng-animate="'fade'" class="tile">
 								<h2>Invitees for {{selectedInvitation.title}}</h2>
 								<table id="tblInvitees" class="table">
 									<thead>
