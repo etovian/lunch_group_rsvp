@@ -27,27 +27,44 @@ var InvitationService = function($http, $log, $q) {
 		});
 	};
 
-	service.getUsers = function(onSuccess) {
-		
+	service.getUsers = function() {
+		var deferred = $q.defer();
 		$http({
 			method: 'GET'
-			, url: "getUsers"
+			, url: "getUsers.json"
 		}).success(function(data, status, headers, config) {
-			onSuccess(data);
+			deferred.resolve(data);
 		}).error(function(data, status, headers, config) {
-			alert('get users http error!');
-//			$log.warn(data, status, headers(), config);
+//			alert('get users http error!');
+			deferred.reject(status);
+			$log.warn(data, status, headers(), config);
 		});
-
+		return deferred.promise;
 	};
 
 	service.getInvitations = function() {
 		var deferred = $q.defer();
 		$http({
 			method: 'GET'
-			, url: "getInvitations"
+			, url: "getInvitations.json"
 		}).success(function(data, status, headers, config) {
 //			deferred.resolve(data.invitations);
+			deferred.resolve(data);
+			$log.info(data, status, headers(), config);
+		}).error(function(data, status, headers, config) {
+			deferred.reject(status);
+			$log.warn(data, status, headers(), config);
+		});
+		
+		return deferred.promise;
+	};
+	
+	service.saveInvitationEvent = function(invitationEvent) {
+		var deferred = $q.defer();
+		$http.post(
+			"saveInvitationEvent.json"
+			, invitationEvent
+		).success(function(data, status, headers, config) {
 			deferred.resolve(data);
 			$log.info(data, status, headers(), config);
 		}).error(function(data, status, headers, config) {

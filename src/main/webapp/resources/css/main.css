@@ -124,7 +124,28 @@ tr.selectedRow {
 	background-color: gray;
 }
 
+.shadow {
+	-webkit-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    7px 7px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         7px 7px 5px rgba(50, 50, 50, 0.75);	
+}
+
 #invitation-scroller {
 	max-height: 600px;
 	overflow-y: scroll; 
+}
+
+#popup-add-invitation-event {
+	
+	position: fixed;
+	
+	width: 420px;
+	left: 50%;
+	margin-left: -210px;
+	
+	height: 420px;
+	top: 50%;
+	margin-top: -210px;
+	
+	border: 1px solid black;
 }

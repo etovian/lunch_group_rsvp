@@ -12,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.stgutah.model.Event;
 import com.stgutah.model.Invitation;
 import com.stgutah.model.Person;
 import com.stgutah.service.InvitationService;
@@ -73,9 +75,9 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-	public void getUsers(Model model) {
+	public @ResponseBody Collection<Person> getUsers(Model model) {
 		
-		model.addAttribute("users", invitationService.getUsers());
+		return invitationService.getUsers(); 
 	}
 	
 	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
@@ -94,5 +96,10 @@ public class HomeController {
 	public void getEvents(Model model) {
 		
 		model.addAttribute("events", invitationService.getEvents());
+	}
+	
+	@RequestMapping(value = "/saveInvitationEvent", method = RequestMethod.POST)
+	public @ResponseBody Event saveInvitationEvent(@RequestBody Event event) {
+		return event;
 	}
 }

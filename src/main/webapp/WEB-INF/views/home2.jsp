@@ -9,7 +9,7 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script>
+<!-- 	<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script> -->
 	<script type="text/javascript" src="resources/js/app.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/InvitationController.js"></script>
 	<script type="text/javascript" src="resources/js/services/InvitationService.js"></script>
@@ -33,7 +33,10 @@
 		</div>
 	</div>
 
-	<jsp:include page="templates/ViewInvitations.jsp"></jsp:include>
+	<div data-ng-controller="InvitationController">
+		<jsp:include page="templates/AddEditInvitationEvent.jsp"></jsp:include>
+		<jsp:include page="templates/ViewInvitations.jsp"></jsp:include>
+	</div>
 
 	<P>  The time on the server is ${serverTime}. </P>
 </body>

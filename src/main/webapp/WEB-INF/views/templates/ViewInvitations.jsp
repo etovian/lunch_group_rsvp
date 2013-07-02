@@ -1,4 +1,4 @@
-<div id="viewYourInvitations" data-ng-controller="InvitationController">
+<div id="viewYourInvitations">
 	<div class="row">
 		<div class="span4">
 			<div class="tile">
@@ -24,23 +24,30 @@
 					<div data-ng-show="ui.showEventTile" data-ng-animate="'fade'" class="tile">
 						<button type="button" class="close" data-ng-click="ui.showEventTile=false;">×</button>
 						<h2>Events for {{selectedInvitation.title}}</h2>
-						<table id="tblInvitationEvents" class="table">
+						<div class="pull-right">
+							<div class="btn-group">
+								<button data-ng-click="addInvitationEvent();" class="btn" type="button">Add</button>
+								<button data-ng-disabled="!selectedInvitationEvent" data-ng-click="editInvitationEvent();" class="btn" type="button">Edit</button>
+								<button data-ng-disabled="!selectedInvitationEvent" class="btn" type="button">Delete</button>
+							</div>
+						</div>
+						<table id="tblInvitationEvents" class="table stripedTable">
 							<thead>
 								<tr>
 									<td>Title</td>
 									<td>Location</td>
-									<td>Organizer</td>
 									<td>Address</td>
+									<td>Organizer</td>
 									<td>Start</td>
 									<td>End</td>
 								</tr>
 							</thead>
 							<tbody>
-								<tr data-ng-repeat="event in selectedInvitation.events | orderBy:eventSortOrder">
+								<tr data-ng-repeat="event in selectedInvitation.events | orderBy:eventSortOrder" data-ng-click="selectInvitationEvent(event);">
 									<td>{{event.title}}</td>
 									<td>{{event.location.name}}</td>
-									<td>{{event.organizer.firstName}}  {{event.organizer.lastName}}</td>
 									<td>{{event.location.streetAddress}} <br/> {{event.location.city}}, {{event.location.zip}}</td>
+									<td>{{event.organizer.firstName}}  {{event.organizer.lastName}}</td>
 									<td>{{event.startTime | date:'short'}}</td>
 									<td>{{event.endTime | date:'shortTime'}}</td>
 								</tr>
@@ -54,7 +61,13 @@
 					<div data-ng-show="ui.showInviteeTile"  data-ng-animate="'fade'" class="tile">
 					<button type="button" class="close" data-ng-click="ui.showInviteeTile=false;">×</button>
 						<h2>Invitees for {{selectedInvitation.title}}</h2>
-						<table id="tblInvitees" class="table">
+						<div class="pull-right">
+							<div class="btn-group">
+								<button class="btn" type="button">Add</button>
+								<button data-ng-disabled="'true'" class="btn" type="button">Delete</button>
+							</div>
+						</div>
+						<table id="tblInvitees" class="table stripedTable">
 							<thead>
 								<tr>
 									<td>Name</td>
