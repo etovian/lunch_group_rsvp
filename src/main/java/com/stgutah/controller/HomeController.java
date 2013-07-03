@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -21,6 +20,9 @@ import com.stgutah.model.Event;
 import com.stgutah.model.Invitation;
 import com.stgutah.model.Person;
 import com.stgutah.service.InvitationService;
+import com.stgutah.view.ClientCommand;
+import com.stgutah.view.ClientCommandType;
+import com.stgutah.view.Response;
 
 /**
  * Handles requests for the application home page.
@@ -80,11 +82,18 @@ public class HomeController {
 		return invitationService.getUsers(); 
 	}
 	
+//	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
+//	public @ResponseBody Collection<Invitation> getInvitations() {
+//		return invitationService.getInvitations();
+//	}
+	
 	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
-	public @ResponseBody Collection<Invitation> getInvitations() {
-//		model.addAttribute("invitations", invitationService.getInvitations());
-		return invitationService.getInvitations();
+	public @ResponseBody Response getInvitations() {
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY,"invitations", invitationService.getInvitations()));
+		return response;
 	}
+	
 	
 	@RequestMapping(value = "/getLocations", method = RequestMethod.GET)
 	public void getLocations(Model model) {

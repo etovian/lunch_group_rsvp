@@ -8,6 +8,8 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
+	<script type="text/javascript" src="resources/js/lib/jquery-class.js"></script>
+	<script type="text/javascript" src="resources/js/lib/ResponseHandler.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
 <!-- 	<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script> -->
 	<script type="text/javascript" src="resources/js/app.js"></script>
@@ -24,7 +26,8 @@
 		<div class="navbar-inner">
 			<span class="brand">Event/Invitation Manager</span>
 			<ul class="nav">
-				<li><a href="#">Review Invitations</a></li>
+				<li><button class="btn btn-link">Review Invitations</button></li>
+<!-- 				<li><a href="#">Review Invitations</a></li> -->
 				<li><a href="#">Admin</a></li>
 				<li><a href="#">Locations</a></li>
 				<li><a href="#">Events</a></li>

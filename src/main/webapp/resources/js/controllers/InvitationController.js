@@ -8,7 +8,13 @@ function InvitationController($scope, invitationService) {
 		, showAddEditInvitationEventPopup: false
 	};
 	
-	$scope.invitations = invitationService.getInvitations();
+	var responseHandler = new ResponseHandler($scope);
+
+	$scope.invitations = [];
+	$scope.invitationsPromise = invitationService.getInvitations().then(function(response) {
+		responseHandler.processCommands(response.commands);
+	});
+//	$scope.invitations = invitationService.getInvitations();
 //	$scope.locations = invitationService.getLocations();
 //	$scope.events = invitationService.getEvents();
 	$scope.users = invitationService.getUsers();
