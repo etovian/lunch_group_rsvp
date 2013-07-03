@@ -22,6 +22,7 @@ import com.stgutah.model.Person;
 import com.stgutah.service.InvitationService;
 import com.stgutah.view.ClientCommand;
 import com.stgutah.view.ClientCommandType;
+import com.stgutah.view.Message;
 import com.stgutah.view.Response;
 
 /**
@@ -108,7 +109,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/saveInvitationEvent", method = RequestMethod.POST)
-	public @ResponseBody Event saveInvitationEvent(@RequestBody Event event) {
-		return event;
+	public @ResponseBody Response saveInvitationEvent(@RequestBody Event event) {
+		
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onInvitationEventSaved", event));
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
+					, new Message("Success!", event.getTitle() + " saved!", Message.STYLE_SUCCESS)));
+		return response;
 	}
 }

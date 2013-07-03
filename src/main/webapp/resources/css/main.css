@@ -41,17 +41,17 @@ body {
 }
 
 .stripedTable tbody tr.selectedRow:nth-child(even):HOVER {
-	background-color: #edf4a3;
+	background-color: yellow;
 	cursor: pointer;
 }
 
 .stripedTable tbody tr:HOVER {
-	background-color: #edf4a3;
+	background-color: yellow;
 	cursor: pointer;
 }
 
 .stripedTable tbody tr.selectedRow:nth-child(odd):HOVER {
-	background-color: #edf4a3;
+	background-color: yellow;
 	cursor: pointer;
 }
 
@@ -105,10 +105,6 @@ tr.selectedRow {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
-	
-	-webkit-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.75);
-	-moz-box-shadow:    7px 7px 5px rgba(50, 50, 50, 0.75);
-	box-shadow:         7px 7px 5px rgba(50, 50, 50, 0.75);		
 }
 
 .click-me {
@@ -119,9 +115,21 @@ tr.selectedRow {
 	background-color: #edf4a3;
 }
 
-.selected {
-	color: white;
-	background-color: gray;
+/* .selected { */
+/* 	color: gray; */
+/* 	background-color: red; */
+/* } */
+
+tr.selected td {
+	background-color: #edf4a3;
+}
+
+.selected.tile {
+	border: 7px solid #edf4a3;
+	
+	-webkit-box-shadow: 7px 7px 5px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    7px 7px 5px rgba(50, 50, 50, 0.75);
+	box-shadow:         7px 7px 5px rgba(50, 50, 50, 0.75);	 
 }
 
 .shadow {
@@ -133,6 +141,17 @@ tr.selectedRow {
 #invitation-scroller {
 	max-height: 600px;
 	overflow-y: scroll; 
+}
+
+#messageFrame {
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+/* 	height: 100%; */
+	width: 350px;
+/* 	background-color: white; */
+	padding: 15px;
+	padding-top: 50px;
 }
 
 #popup-add-invitation-event {

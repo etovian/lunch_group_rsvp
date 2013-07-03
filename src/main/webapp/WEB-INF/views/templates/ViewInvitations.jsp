@@ -9,7 +9,14 @@
 	<div class="row">
 		<div class="span4">
 			<div id="invitation-scroller">
-				<div class="tile click-me hover-highlight" data-ng-repeat="invitation in invitations" data-ng-click="selectInvitation($event, invitation);">
+				<div 
+					class="tile click-me hover-highlight" 
+					data-invitation="invitation" 
+					data-ng-repeat="invitation in invitations"
+					data-selectable-div 
+					data-on-selected="selectInvitation($event, invitation);" 
+					data-ng-click="onSelected();">
+					
 					<h4>{{invitation.title}}</h4>
 					<p>Events: {{invitation.events.length}}</p>
 					<p>Invitees: {{invitation.invitees.length}}</p>
@@ -43,7 +50,10 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr data-ng-repeat="event in selectedInvitation.events | orderBy:eventSortOrder" data-ng-click="selectInvitationEvent(event);">
+								<tr 
+									data-ng-repeat="event in selectedInvitation.events | orderBy:eventSortOrder"
+									data-ng-click="selectInvitationEvent(event);">
+									
 									<td>{{event.title}}</td>
 									<td>{{event.location.name}}</td>
 									<td>{{event.location.streetAddress}} <br/> {{event.location.city}}, {{event.location.zip}}</td>

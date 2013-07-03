@@ -8,10 +8,11 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="http://code.angularjs.org/1.1.5/angular.min.js"></script>
+	<script type="text/javascript" src="resources/js/lib/underscore.js"></script>
 	<script type="text/javascript" src="resources/js/lib/jquery-class.js"></script>
 	<script type="text/javascript" src="resources/js/lib/ResponseHandler.js"></script>
 	<script type="text/javascript" src="resources/bootstrap/js/bootstrap.min.js"></script>
-<!-- 	<script type="text/javascript" src="resources/js/lib/angular-bootstrap.js"></script> -->
+	<script type="text/javascript" src="resources/js/directives/Selectable.js"></script>
 	<script type="text/javascript" src="resources/js/app.js"></script>
 	<script type="text/javascript" src="resources/js/controllers/InvitationController.js"></script>
 	<script type="text/javascript" src="resources/js/services/InvitationService.js"></script>
@@ -39,6 +40,16 @@
 	<div data-ng-controller="InvitationController">
 		<jsp:include page="templates/AddEditInvitationEvent.jsp"></jsp:include>
 		<jsp:include page="templates/ViewInvitations.jsp"></jsp:include>
+		
+		<div id="messageFrame">
+			<div 
+				data-ng-repeat="message in messages" 
+				data-ng-animate="'fade'" 
+				class="alert {{message.style}} shadow">
+				<h3>{{ message.title }}</h3>
+				<p>{{ message.text }}</p>
+			</div>
+		</div>
 	</div>
 
 	<P>  The time on the server is ${serverTime}. </P>

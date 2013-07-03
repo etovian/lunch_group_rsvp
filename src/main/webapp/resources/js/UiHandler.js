@@ -7,8 +7,9 @@ function onReady() {
 
 function addEventListeners() {
 	
-	$("#invitation-scroller").on("click", ".tile.click-me", function() {
-		$(this).parent().children().removeClass("selected");
-		$(this).addClass("selected");
+	//directive templates for table rows seem to be broken at the moment
+	$(".table.stripedTable").on("click", "tr", function() {
+		$(this).siblings().removeClass("selected");
+		$(this).toggleClass("selected");
 	});
 }

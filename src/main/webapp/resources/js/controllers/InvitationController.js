@@ -1,6 +1,6 @@
 invitationApp.controller("InvitationController", InvitationController);
 
-function InvitationController($scope, invitationService) {
+function InvitationController($scope, $timeout, $log, invitationService) {
 	
 	$scope.ui = {
 		showEventTile: false
@@ -10,6 +10,22 @@ function InvitationController($scope, invitationService) {
 	
 	var responseHandler = new ResponseHandler($scope);
 
+	$scope.messages = [];
+	$scope.addMessage = function(message) {
+		$scope.messages.push(message);
+		
+		if(message.displaySeconds) {
+			var displayLength = message.displaySeconds ? message.displaySeconds * 1000 : 5000; 
+			$timeout(function() {
+				$scope.removeMessage(message);
+			}, displayLength);			
+		}
+	};
+	
+	$scope.removeMessage = function(message) {
+		$scope.messages = _.without($scope.messages, message);
+	};
+	
 	$scope.invitations = [];
 	$scope.invitationsPromise = invitationService.getInvitations().then(function(response) {
 		responseHandler.processCommands(response.commands);
@@ -53,6 +69,14 @@ function InvitationController($scope, invitationService) {
 	};
 
 	$scope.saveInvitationEvent = function() {
-		invitationService.saveInvitationEvent($scope.selectedInvitationEvent);
+		
+		invitationService.saveInvitationEvent($scope.selectedInvitationEvent)
+			.then(function(response) {
+				responseHandler.processCommands(response.commands);
+			});
+	};
+	
+	$scope.onInvitationEventSaved = function(event) {
+		$log.info("invitation event saved", event);
 	};
 }
