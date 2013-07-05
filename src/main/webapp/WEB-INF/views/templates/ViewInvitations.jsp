@@ -73,7 +73,7 @@
 						<h2>Invitees for {{selectedInvitation.title}}</h2>
 						<div class="pull-right">
 							<div class="btn-group">
-								<button class="btn" type="button">Add</button>
+								<button data-ng-click="selectInvitees();" class="btn" type="button">Add</button>
 								<button data-ng-disabled="'true'" class="btn" type="button">Delete</button>
 							</div>
 						</div>

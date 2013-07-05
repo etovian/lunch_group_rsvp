@@ -1,3 +1,5 @@
+<!-- without the following line, bootstrap css oddly renders text inputs -->
+<!DOCTYPE HTML>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html data-ng-app="invitationApp">
@@ -28,18 +30,24 @@
 			<span class="brand">Event/Invitation Manager</span>
 			<ul class="nav">
 				<li><button class="btn btn-link">Review Invitations</button></li>
-<!-- 				<li><a href="#">Review Invitations</a></li> -->
-				<li><a href="#">Admin</a></li>
-				<li><a href="#">Locations</a></li>
-				<li><a href="#">Events</a></li>
-				<li><a href="#">Create Invitations</a></li>
+				<li><button class="btn btn-link">Admin</button></li>
+				<li><button class="btn btn-link">Locations</button></li>
+				<li><button class="btn btn-link">Events</button></li>
+				<li><button class="btn btn-link">Create Invitations</button></li>
 			</ul>
 		</div>
 	</div>
 
 	<div data-ng-controller="InvitationController">
-		<jsp:include page="templates/AddEditInvitationEvent.jsp"></jsp:include>
-		<jsp:include page="templates/ViewInvitations.jsp"></jsp:include>
+	
+		<div data-ng-show="ui.showInvitationPane">
+			<jsp:include page="templates/ViewInvitations.jsp"></jsp:include>
+			<jsp:include page="templates/AddEditInvitationEvent.jsp"></jsp:include>
+			<jsp:include page="templates/UserLookup.jsp"></jsp:include>
+		</div>
+		<div data-ng-show="ui.showLocationPane">
+			<jsp:include page="templates/ManageLocations.jsp"></jsp:include>
+		</div>
 		
 		<div id="messageFrame">
 			<div 

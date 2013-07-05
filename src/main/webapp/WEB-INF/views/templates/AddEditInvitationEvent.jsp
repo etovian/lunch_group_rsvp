@@ -24,7 +24,11 @@
 		<div class="control-group">
 			<label class="control-label" for="eventLocation">Location</label>
 			<div class="controls">
-				<select id="eventLocation"></select>
+				<select 
+					id="eventLocation"
+					data-ng-model="selectedInvitationEvent.location"
+					data-ng-options="(location.name + ' (' + location.city +')') for (id, location) in locations | orderBy: 'name'">
+				</select>
 			</div>
 		</div>
 		
@@ -43,7 +47,7 @@
 				<select 
 					id="eventOrganizer" 
 					data-ng-model="selectedInvitationEvent.organizer"  
-					data-ng-options="(user.firstName + ' ' + user.lastName) for (id, user) in users">
+					data-ng-options="(user.firstName + ' ' + user.lastName) for (id, user) in users | orderBy:'lastName'">
 <!-- 					value.name | uppercase for (key, value) in optionsObjectA -->
 <!-- 				select as label for (key , value) in object -->
 				</select>

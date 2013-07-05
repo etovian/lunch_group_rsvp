@@ -97,9 +97,12 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/getLocations", method = RequestMethod.GET)
-	public void getLocations(Model model) {
+	public @ResponseBody Response getLocations() {
 		
-		model.addAttribute("locations", invitationService.getLocations());
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY, "locations", invitationService.getLocations()));
+		
+		return response;
 	}
 	
 	@RequestMapping(value = "/getEvents", method = RequestMethod.GET)
@@ -115,6 +118,16 @@ public class HomeController {
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onInvitationEventSaved", event));
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
 					, new Message("Success!", event.getTitle() + " saved!", Message.STYLE_SUCCESS)));
+		return response;
+	}
+	
+	@RequestMapping(value = "/addInvitee", method = RequestMethod.POST)
+	public @ResponseBody Response addInvitee(@RequestBody Person person) {
+		
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onInviteeAdded", person));
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
+					, new Message("Success!", person.getFirstName() + "  " + person.getLastName() + " was added to the event!", Message.STYLE_SUCCESS)));
 		return response;
 	}
 }

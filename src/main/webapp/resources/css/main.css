@@ -20,6 +20,11 @@ body {
 	box-shadow:         7px 7px 5px rgba(50, 50, 50, 0.75);	
 }
 
+.lookupTableContainer {
+	max-height: 250px;
+	overflow: scroll;
+}
+
 /* NOTE: SPECIFICITY IS IMPORTANT TO GET THE STRIPES _AND_ HOVERING TO WORK */
 
 .stripedTable th {
@@ -167,4 +172,19 @@ tr.selected td {
 	margin-top: -210px;
 	
 	border: 1px solid black;
+}
+
+#popup-user-lookup {
+	
+	position: fixed;
+	
+	width: 420px;
+	left: 50%;
+	margin-left: -210px;
+	
+	height: 380px;
+	top: 50%;
+	margin-top: -190px;
+	
+	border: 1px solid black;	
 }

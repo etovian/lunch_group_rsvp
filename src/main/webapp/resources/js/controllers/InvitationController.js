@@ -6,6 +6,15 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 		showEventTile: false
 		, showInviteeTile: false
 		, showAddEditInvitationEventPopup: false
+		, showUserLookup: false
+		, showInvitationPane: true
+		, showLocationPane: true
+	};
+	
+	$scope.userLookup = {
+		selectedUser: null
+		, filter: null
+		, onUserConfirmed: null //function
 	};
 	
 	var responseHandler = new ResponseHandler($scope);
@@ -30,9 +39,24 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 	$scope.invitationsPromise = invitationService.getInvitations().then(function(response) {
 		responseHandler.processCommands(response.commands);
 	});
-//	$scope.invitations = invitationService.getInvitations();
-//	$scope.locations = invitationService.getLocations();
-//	$scope.events = invitationService.getEvents();
+
+	$scope.locations = [];
+	$scope.locationPromise = invitationService.getLocations().then(function(response) {
+		responseHandler.processCommands(response.commands);
+	});
+	$scope.selectedLocation = null;
+	$scope.selectLocation = function(location) {
+//		alert(location.name);
+		$scope.selectedLocation = location;
+	};
+	$scope.saveLocation = function() {
+		
+	};
+	$scope.clearSelectedLocation = function() {
+		$scope.selectedLocation = null;
+	}
+
+	//	$scope.events = invitationService.getEvents();
 	$scope.users = invitationService.getUsers();
 
 	$scope.inviteeSortOrder = "lastName";
@@ -48,6 +72,8 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 		$scope.ui.showInviteeTile = true;
 	};
 	
+	
+	//invitation events
 	$scope.selectInvitationEvent = function(invitationEvent) {
 		$scope.selectedInvitationEvent = invitationEvent;
 		
@@ -78,5 +104,22 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 	
 	$scope.onInvitationEventSaved = function(event) {
 		$log.info("invitation event saved", event);
+	};
+	
+	//invitees
+	$scope.selectInvitees = function() {
+		$scope.ui.showUserLookup = true;
+		$scope.userLookup.onUserConfirmed = $scope.onInviteeConfirmed;
+	};
+	
+	$scope.onInviteeConfirmed = function(invitee) {
+		invitationService.addInvitee(invitee)
+			.then(function(response) {
+				responseHandler.processCommands(response.commands);
+			});
+	};
+	
+	$scope.onInviteeAdded = function(invitee) {
+		$scope.selectedInvitation.invitees.push(invitee);
 	};
 }
