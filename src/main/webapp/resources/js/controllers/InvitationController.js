@@ -7,8 +7,16 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 		, showInviteeTile: false
 		, showAddEditInvitationEventPopup: false
 		, showUserLookup: false
+		
 		, showInvitationPane: true
-		, showLocationPane: true
+		, showLocationPane: false
+		, showPane: function(pane) {
+			
+			$scope.ui.showInvitationPane = false;
+			$scope.ui.showLocationPane = false;
+			
+			$scope.ui[pane] = true;
+		}
 	};
 	
 	$scope.userLookup = {
@@ -49,14 +57,19 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 //		alert(location.name);
 		$scope.selectedLocation = location;
 	};
+	
 	$scope.saveLocation = function() {
-		
+		invitationService.saveLocation($scope.selectedLocation).then(function(response) {
+			responseHandler.processCommands(response.commands);
+		});
+	};
+	$scope.onLocationSaved = function(location) {
+		$scope.locations.push(location);
 	};
 	$scope.clearSelectedLocation = function() {
 		$scope.selectedLocation = null;
-	}
+	};
 
-	//	$scope.events = invitationService.getEvents();
 	$scope.users = invitationService.getUsers();
 
 	$scope.inviteeSortOrder = "lastName";

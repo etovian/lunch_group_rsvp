@@ -1,5 +1,5 @@
-package com.stgutah.controller;
 
+package com.stgutah.controller;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.stgutah.model.Event;
 import com.stgutah.model.Invitation;
+import com.stgutah.model.Location;
 import com.stgutah.model.Person;
 import com.stgutah.service.InvitationService;
 import com.stgutah.view.ClientCommand;
@@ -127,7 +128,17 @@ public class HomeController {
 		Response response = new Response();
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onInviteeAdded", person));
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
-					, new Message("Success!", person.getFirstName() + "  " + person.getLastName() + " was added to the event!", Message.STYLE_SUCCESS)));
+					, new Message("Success!", person.getFirstName() + "  " + person.getLastName() + " was added to the event.", Message.STYLE_SUCCESS)));
+		return response;
+	}
+	
+	@RequestMapping(value = "/saveLocation", method = RequestMethod.POST)
+	public @ResponseBody Response saveLocation(@RequestBody Location location) {
+		
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onLocationSaved", location));
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
+					, new Message("Success!", location.getName() + " saved.", Message.STYLE_SUCCESS)));
 		return response;
 	}
 }

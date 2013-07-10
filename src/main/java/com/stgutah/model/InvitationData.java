@@ -51,7 +51,7 @@ public class InvitationData {
 		locations.add(new Location("Arby's", "845 Heartburn Way", "Provo", "UT", "11111"));
 		locations.add(new Location("McDonald's", "132 Indigestion St.", "Sandy", "UT", "22222"));
 		locations.add(new Location("Western Sizzler", "439 Gassy Blvd.", "Salt Lake City", "UT", "33333"));
-		locations.add(new Location("Corral", "687 Nausea Circle", "Layton", "UT", "44444"));
+		locations.add(new Location("Golden Corral", "687 Nausea Circle", "Layton", "UT", "44444"));
 		locations.add(new Location("Ruth's Chris Steakhouse", "909 Now We're Talking Ave", "Park City", "UT", "55555"));
 		
 		int x = 0;
