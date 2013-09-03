@@ -1,22 +1,65 @@
 package com.stgutah.model;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Invitation extends Persistable {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="invitation")
+public class Invitation {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
+	private Integer id;
+	
+	@Column(name="title")
 	private String title;
-	private Collection<Event> events;
-	private Collection<Person> invitees;
+	
+	@Column(name="allow_multiple_attendance")
 	private Boolean allowMultipleAttendance;
+
+	@Column(name="created")
 	private Date created;
+	
+	@Column(name="sent")
 	private Date sent;
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="invitation_id", referencedColumnName="id")
+	private List<Event> events = new ArrayList<Event>();
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable
+	(
+		name="invite_invitee"
+		, joinColumns={ @JoinColumn(name="invitation_id", referencedColumnName="id") }
+		, inverseJoinColumns={ @JoinColumn(name="person_id", referencedColumnName="id") }
+	)
+	private List<Person> invitees = new ArrayList<Person>();
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="created_by_person_id", referencedColumnName="id")
+	private Person createdBy;
 	
 	public Invitation() {
 	}
 
-	public Invitation(String title, Collection<Event> events,
-			Collection<Person> invitees, Boolean allowMultipleAttendance,
+	public Invitation(String title, List<Event> events,
+			List<Person> invitees, Boolean allowMultipleAttendance,
 			Date created, Date sent) {
 
 		this.title = title;
@@ -27,19 +70,19 @@ public class Invitation extends Persistable {
 		this.sent = sent;
 	}
 
-	public Collection<Event> getEvents() {
+	public List<Event> getEvents() {
 		return events;
 	}
 
-	public void setEvents(Collection<Event> events) {
+	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
 
-	public Collection<Person> getInvitees() {
+	public List<Person> getInvitees() {
 		return invitees;
 	}
 
-	public void setInvitees(Collection<Person> invitees) {
+	public void setInvitees(List<Person> invitees) {
 		this.invitees = invitees;
 	}
 
@@ -73,6 +116,22 @@ public class Invitation extends Persistable {
 
 	public void setSent(Date sent) {
 		this.sent = sent;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Person getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Person createdBy) {
+		this.createdBy = createdBy;
 	}
 
 }

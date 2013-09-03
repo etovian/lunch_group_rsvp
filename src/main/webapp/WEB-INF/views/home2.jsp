@@ -32,13 +32,15 @@
 			<div class="navbar-inner">
 				<span class="brand">Event/Invitation Manager</span>
 				<ul class="nav">
-					<li><button 
-						data-ng-click="ui.showPane('showInvitationPane');" 
-						class="btn btn-link"
-						type="button">Review Invitations</button>
+					<li>
+						<button 
+							data-ng-click="ui.showPane('showInvitationPane');" 
+							class="btn btn-link"
+							type="button">Review Invitations</button>
 					</li>
 					<li>
 						<button 
+							data-ng-click="ui.showPane('showAdminPane');"
 							class="btn btn-link" 
 							type="button">Admin</button>
 					</li>
@@ -47,12 +49,9 @@
 							data-ng-click="ui.showPane('showLocationPane');" 
 							class="btn btn-link" 
 							type="button">Locations</button></li>
-					<li><button 
-						class="btn btn-link" 
-						type="button">Events</button>
-					</li>
 					<li>
 						<button 
+							data-ng-click="ui.showPane('showCreateInvitationPane')"
 							class="btn btn-link" 
 							type="button">Create Invitations</button></li>
 				</ul>
@@ -64,8 +63,14 @@
 			<jsp:include page="templates/AddEditInvitationEvent.jsp"></jsp:include>
 			<jsp:include page="templates/UserLookup.jsp"></jsp:include>
 		</div>
+		<div data-ng-show="ui.showAdminPane">
+			<jsp:include page="templates/Admin.jsp"></jsp:include>
+		</div>
 		<div data-ng-show="ui.showLocationPane">
 			<jsp:include page="templates/ManageLocations.jsp"></jsp:include>
+		</div>
+		<div data-ng-show="ui.showCreateInvitationPane">
+			<jsp:include page="templates/CreateInvitation.jsp"></jsp:include>
 		</div>
 		
 		<div id="messageFrame">

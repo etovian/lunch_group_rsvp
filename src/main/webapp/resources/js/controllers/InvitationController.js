@@ -14,6 +14,8 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 			
 			$scope.ui.showInvitationPane = false;
 			$scope.ui.showLocationPane = false;
+			$scope.ui.showCreateInvitationPane = false;
+			$scope.ui.showAdminPane = false;
 			
 			$scope.ui[pane] = true;
 		}
@@ -43,14 +45,24 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 		$scope.messages = _.without($scope.messages, message);
 	};
 	
+	//invitations
 	$scope.invitations = [];
 	$scope.invitationsPromise = invitationService.getInvitations().then(function(response) {
 		responseHandler.processCommands(response.commands);
 	});
-
+	$scope.saveInvitation = function() {
+		invitationService.saveInvitation($scope.selectedInvitation).then(function(response) {
+			responseHandler.processCommands(response.commands);
+		});
+	};
+	$scope.onInvitationSaved = function(invitation) {
+		$scope.selectedInvitation = invitation;
+	};
+	
+	//locations
 	$scope.locations = [];
 	$scope.locationPromise = invitationService.getLocations().then(function(response) {
-		responseHandler.processCommands(response.commands);
+		new ResponseHandler($scope).processCommands(response.commands);
 	});
 	$scope.selectedLocation = null;
 	$scope.selectLocation = function(location) {
@@ -60,17 +72,15 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 	
 	$scope.saveLocation = function() {
 		invitationService.saveLocation($scope.selectedLocation).then(function(response) {
-			responseHandler.processCommands(response.commands);
+			new ResponseHandler($scope).processCommands(response.commands);
 		});
 	};
 	$scope.onLocationSaved = function(location) {
-		$scope.locations.push(location);
+		$scope.selectedLocation = location;
 	};
 	$scope.clearSelectedLocation = function() {
 		$scope.selectedLocation = null;
 	};
-
-	$scope.users = invitationService.getUsers();
 
 	$scope.inviteeSortOrder = "lastName";
 	$scope.eventSortOrder = "startTime";
@@ -90,9 +100,15 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 	$scope.selectInvitationEvent = function(invitationEvent) {
 		$scope.selectedInvitationEvent = invitationEvent;
 		
-		$.each($scope.users.$$v, function(index, user) {
+		$.each($scope.users, function(index, user) {
 			if(user.id == $scope.selectedInvitationEvent.organizer.id) {
 				$scope.selectedInvitationEvent.organizer = user;
+			}
+		});
+		
+		$.each($scope.locations, function(index, location) {
+			if(location.id == $scope.selectedInvitationEvent.location.id) {
+				$scope.selectedInvitationEvent.location = location;
 			}
 		});
 	};
@@ -109,14 +125,22 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 
 	$scope.saveInvitationEvent = function() {
 		
-		invitationService.saveInvitationEvent($scope.selectedInvitationEvent)
+		$scope.selectedInvitation.events.push($scope.selectedInvitationEvent);
+		invitationService.saveInvitationEvent($scope.selectedInvitation)
 			.then(function(response) {
 				responseHandler.processCommands(response.commands);
-			});
+			}); 
 	};
 	
 	$scope.onInvitationEventSaved = function(event) {
 		$log.info("invitation event saved", event);
+	};
+	
+	$scope.deleteInvitationEvent = function() {
+		invitationService.deleteInvitationEvent($scope.selectedInvitationEvent)
+			.then(function(response) {
+				responseHandler.processCommands(response.commands);
+			});
 	};
 	
 	//invitees
@@ -126,7 +150,8 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 	};
 	
 	$scope.onInviteeConfirmed = function(invitee) {
-		invitationService.addInvitee(invitee)
+		$scope.selectedInvitation.invitees.push(invitee);
+		invitationService.addInvitee($scope.selectedInvitation)
 			.then(function(response) {
 				responseHandler.processCommands(response.commands);
 			});
@@ -134,5 +159,26 @@ function InvitationController($scope, $timeout, $log, invitationService) {
 	
 	$scope.onInviteeAdded = function(invitee) {
 		$scope.selectedInvitation.invitees.push(invitee);
+	};
+	
+	//users
+	$scope.users = [];
+	invitationService.getUsers()
+		.then(function(response) {
+				responseHandler.processCommands(response.commands);
+			});
+	$scope.newUser = {
+		firstName: ""
+		, lastName: ""
+		, emailAddress: ""
+	};
+	$scope.saveUser = function() {
+		invitationService.saveUser($scope.newUser)
+			.then(function(response) {
+				responseHandler.processCommands(response.commands);
+			});
+	};
+	$scope.onUserSaved = function(user) {
+		$scope.users.push(user);
 	};
 }

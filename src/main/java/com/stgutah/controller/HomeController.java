@@ -79,15 +79,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
-	public @ResponseBody Collection<Person> getUsers(Model model) {
+	public @ResponseBody Response getUsers(Model model) {
 		
-		return invitationService.getUsers(); 
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY,"users", invitationService.getUsers()));
+		return response;
 	}
-	
-//	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
-//	public @ResponseBody Collection<Invitation> getInvitations() {
-//		return invitationService.getInvitations();
-//	}
 	
 	@RequestMapping(value = "/getInvitations", method = RequestMethod.GET)
 	public @ResponseBody Response getInvitations() {
@@ -113,22 +110,26 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/saveInvitationEvent", method = RequestMethod.POST)
-	public @ResponseBody Response saveInvitationEvent(@RequestBody Event event) {
+	public @ResponseBody Response saveInvitationEvent(@RequestBody Invitation invitation) {
 		
 		Response response = new Response();
-		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onInvitationEventSaved", event));
+		Invitation i = invitationService.saveInvitation(invitation);
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY,"selectedInvitation", i));
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
-					, new Message("Success!", event.getTitle() + " saved!", Message.STYLE_SUCCESS)));
+					, new Message("Success!", "Event added!", Message.STYLE_SUCCESS)));
 		return response;
 	}
 	
-	@RequestMapping(value = "/addInvitee", method = RequestMethod.POST)
-	public @ResponseBody Response addInvitee(@RequestBody Person person) {
+	@RequestMapping(value="/saveInvitation", method = RequestMethod.POST)
+	public @ResponseBody Response saveInvitation(@RequestBody Invitation invitation) {
 		
 		Response response = new Response();
-		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onInviteeAdded", person));
+		Invitation i = invitationService.saveInvitation(invitation);
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "onInvitationSaved", i));
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY, "invitations", invitationService.getInvitations()));
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
-					, new Message("Success!", person.getFirstName() + "  " + person.getLastName() + " was added to the event.", Message.STYLE_SUCCESS)));
+				, new Message("Success!", i.getTitle() + " saved!", Message.STYLE_SUCCESS)));
+		
 		return response;
 	}
 	
@@ -136,9 +137,44 @@ public class HomeController {
 	public @ResponseBody Response saveLocation(@RequestBody Location location) {
 		
 		Response response = new Response();
-		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onLocationSaved", location));
+		Location l = invitationService.saveLocation(location);
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onLocationSaved", l));
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY,"locations", invitationService.getLocations()));
 		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
-					, new Message("Success!", location.getName() + " saved.", Message.STYLE_SUCCESS)));
+					, new Message("Success!", l.getName() + " saved.", Message.STYLE_SUCCESS)));
+		return response;
+	}
+	
+	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+	public @ResponseBody Response saveUser(@RequestBody Person person) {
+		
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD,"onUserSaved", invitationService.savePerson(person)));
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
+				, new Message("Success!", person.getFirstName() + " " + person.getLastName() + " saved.", Message.STYLE_SUCCESS)));
+		return response;
+	}
+	
+	@RequestMapping(value = "/deleteInvitationEvent", method = RequestMethod.POST)
+	public @ResponseBody Response deleteInvitationEvent(@RequestBody Event event) {
+		
+		Invitation invitation = invitationService.deleteInvitationEvent(event);
+		Response response = new Response();
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY,"selectedInvitation", invitation));
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
+				, new Message("Record Deleted!", "The event " + event.getTitle() + " was deleted.", Message.STYLE_ERROR)));
+		
+		return response;
+	}
+	
+	@RequestMapping(value = "/addInvitee", method = RequestMethod.POST)
+	public @ResponseBody Response addInvitee(@RequestBody Invitation invitation) {
+
+		Response response = new Response();
+		Invitation i = invitationService.saveInvitation(invitation);
+		response.addCommand(new ClientCommand(ClientCommandType.PROPERTY,"selectedInvitation", i));
+		response.addCommand(new ClientCommand(ClientCommandType.METHOD, "addMessage"
+					, new Message("Success!", "Invitee added!", Message.STYLE_SUCCESS)));
 		return response;
 	}
 }

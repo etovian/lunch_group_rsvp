@@ -3,17 +3,70 @@ package com.stgutah.model;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.stgutah.model.enums.EventStatus;
 
-public class Event extends Persistable {
+@Entity
+@Table(name="event")
+public class Event {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
+	private Integer id;
+	
+	@Column(name="invitation_id")
+	private Integer invitationId;
+	
+	@Column(name="title")
 	private String title;
+	
+	@ManyToOne
+	@JoinColumn(name="location_id", referencedColumnName="id")
 	private Location location;
+	
+	@Column(name="event_status")
+	@Enumerated(EnumType.STRING)
 	private EventStatus status;
+	
+	@Column(name="start_time")
 	private Date startTime;
+	
+	@Column(name="end_time")
 	private Date endTime;
+
+	@ManyToOne
+	@JoinColumn(name="organizer_person_id", referencedColumnName="id")
 	private Person organizer;
+	
+	@ManyToMany
+	@JoinTable
+	(
+		name="event_rsvp"
+		, joinColumns={ @JoinColumn(name="event_id", referencedColumnName="id") }
+		, inverseJoinColumns={ @JoinColumn(name="person_id", referencedColumnName="id") }
+	)
 	private Collection<Person> rsvps; 
+	
+	@ManyToMany
+	@JoinTable
+	(
+		name="event_attendee"
+		, joinColumns={ @JoinColumn(name="event_id", referencedColumnName="id") }
+		, inverseJoinColumns={ @JoinColumn(name="person_id", referencedColumnName="id") }
+	)
 	private Collection<Person> attendees;
 	
 	public Event() {
@@ -94,6 +147,22 @@ public class Event extends Persistable {
 
 	public void setRsvps(Collection<Person> rsvps) {
 		this.rsvps = rsvps;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getInvitationId() {
+		return invitationId;
+	}
+
+	public void setInvitationId(Integer invitationId) {
+		this.invitationId = invitationId;
 	}
 
 }

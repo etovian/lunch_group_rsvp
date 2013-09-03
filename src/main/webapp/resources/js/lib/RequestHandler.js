@@ -12,7 +12,7 @@ var RequestHandler = Class.extend({
 			deferred.resolve(data);
 		}).error(function(data, status, headers, config) {
 			if(log) {
-				$log.warn(data, status, headers(), config);
+				log.warn(data, status, headers(), config);
 			}
 		});
 		return deferred.promise;

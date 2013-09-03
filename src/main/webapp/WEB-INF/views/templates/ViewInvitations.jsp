@@ -35,7 +35,7 @@
 							<div class="btn-group">
 								<button data-ng-click="addInvitationEvent();" class="btn" type="button">Add</button>
 								<button data-ng-disabled="!selectedInvitationEvent" data-ng-click="editInvitationEvent();" class="btn" type="button">Edit</button>
-								<button data-ng-disabled="!selectedInvitationEvent" class="btn" type="button">Delete</button>
+								<button data-ng-disabled="!selectedInvitationEvent" data-ng-click="deleteInvitationEvent();" class="btn" type="button">Delete</button>
 							</div>
 						</div>
 						<table id="tblInvitationEvents" class="table stripedTable">

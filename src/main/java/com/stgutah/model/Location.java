@@ -1,11 +1,34 @@
 package com.stgutah.model;
 
-public class Location extends Persistable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="location")
+public class Location {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
+	private Integer id;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="street_address")
 	private String streetAddress;
+	
+	@Column(name="city")
 	private String city;
+	
+	@Column(name="state")
 	private String state;
+	
+	@Column(name="zip")
 	private String zip;
 	
 	public Location() {
@@ -61,6 +84,14 @@ public class Location extends Persistable {
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
