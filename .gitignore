@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled source #
 ###################
 *.com
@@ -35,3 +36,11 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+=======
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+>>>>>>> 8ee321ee1033de6760501e96926c98d07f61f626
